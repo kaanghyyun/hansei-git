@@ -1,26 +1,53 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState, useCallback } from "react";
+import styled from "styled-components";
+import Modal from "./components/Modal";
 
 function App() {
+  const [isOpenModal, setOpenModal] = useState<boolean>(false);
+
+  const onClickToggleModal = useCallback(() => {
+    setOpenModal(!isOpenModal);
+  }, [isOpenModal]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Main>
+      <Title>여긴 배경화면 입니다</Title>
+      {isOpenModal && (
+        <Modal onClickToggleModal={onClickToggleModal}>
+          이곳에 children이 들어갑니다.
+        </Modal>
+      )}
+      <DialogButton onClick={onClickToggleModal}>Open Modal</DialogButton>
+    </Main>
   );
 }
+
+const Main = styled.main`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Title = styled.h3`
+  text-align: center;
+`;
+
+const DialogButton = styled.button`
+  width: 160px;
+  height: 48px;
+  background-color: blueviolet;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 400;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+`;
 
 export default App;
