@@ -1,6 +1,7 @@
+
 import { useState, useCallback } from "react";
 import styled from "styled-components";
-import Modal from "./components/Modal";
+import Modal from "./components/Modal/Modal";
 
 function App() {
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
